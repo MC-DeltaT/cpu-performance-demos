@@ -10,4 +10,4 @@ unpredictable : unpredictable.s
 
 .PHONY: clean
 clean :
-	rm predictable unpredictable
+	rm -f predictable unpredictable

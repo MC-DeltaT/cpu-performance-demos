@@ -27,11 +27,11 @@ time ./predictable
 time ./unpredictable
 ```
 
-You may want to confirm the branch prediction rate - which is inclusive of indirect jumps:
+You may want to confirm the branch prediction hit rate - which is inclusive of indirect jumps:
 
 ```bash
-perf stat ./predictable
-perf stat ./unpredictable
+perf stat -e branches,branch-misses ./predictable
+perf stat -e branches,branch-misses ./unpredictable
 ```
 
 ## Explanation
