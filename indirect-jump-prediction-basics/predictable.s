@@ -4,27 +4,27 @@
 
 .text
 main:
-    movq    %rcx, 25698         # Random state
-    movq    %rdx, 2000000000    # Loop counter
-    movq    %rax, 0             # Result accumulator
+    mov     %rcx, 25698         # Random state
+    mov     %rdx, 2000000000    # Loop counter
+    mov     %rax, 0             # Result accumulator
 loop:
-    movq    %rdi, %rcx      # Generate next number in sequence
-    sarq    %rcx, 13
-    addq    %rcx, %rdi
-    movq    %rdi, %rcx      # Compute jump table offset
-    andq    %rdi, 1
-    shlq    %rdi, 3         # Even -> RDI=0, odd -> RDI=8
-    leaq    %rsi, [targets+%rip]    # Load jump table
-    jmpq    [%rsi+%rdi]     # Even -> target1, odd -> target2
+    mov     %rdi, %rcx      # Generate next number in sequence
+    sar     %rcx, 13
+    add     %rcx, %rdi
+    mov     %rdi, %rcx      # Compute jump table offset
+    and     %rdi, 1
+    shl     %rdi, 3         # Even -> RDI=0, odd -> RDI=8
+    lea     %rsi, [targets+%rip]    # Load jump table
+    jmp     [%rsi+%rdi]     # Even -> target1, odd -> target2
 target1:
-    addq    %rax, 3141
+    add     %rax, 3141
     jmp     tail
 target2:
-    addq    %rax, 5926
+    add     %rax, 5926
     jmp     tail
     nop
 tail:
-    decq    %rdx            # Loop counter & condiiton
+    dec     %rdx            # Loop counter & condiiton
     jnz     loop
     ret
 
