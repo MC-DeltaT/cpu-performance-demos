@@ -8,6 +8,13 @@ The assembly program `superscalar.s` consists of a loop with three independent a
 
 ## Requirements
 
+CPU:
+
+- Any Intel x86-64
+- Any AMD x86-64
+
+Software:
+
 - GCC
 - Make
 - perf

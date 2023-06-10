@@ -9,6 +9,13 @@ However, `unpredictable`'s sequence is largely random, while `predictable`'s seq
 
 ## Requirements
 
+CPU:
+
+- Any Intel x86-64
+- Any AMD x86-64
+
+Software:
+
 - GCC
 - Make
 

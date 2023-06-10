@@ -10,10 +10,12 @@ In `with-mov`, there is an extraneous `mov` in the loop dependency chain. In `wi
 ## Requirements
 
 CPU:
-- Most Intel x86 since Ivy Bridge
-- AMD x86 since Zen
+
+- Most Intel x86-64 since Ivy Bridge
+- AMD x86-64 since Zen
 
 Software:
+
 - GCC
 - Make
 - perf
@@ -34,6 +36,7 @@ perf stat -e cycles ./without-mov
 ```
 
 You may also want to check the number of micro-instructions executed:
+
 ```bash
 perf stat -e uops_executed.core ./with-mov
 perf stat -e uops_executed.core ./without-mov
