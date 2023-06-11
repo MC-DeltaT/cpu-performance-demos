@@ -2,7 +2,7 @@
 
 ## Overview
 
-A demonstration of `mov` elimination, an optimisation done by the CPU where unnecessary `mov` instructions may be elided.
+A demonstration of `mov` elimination, an optimisation where unnecessary `mov` instructions may be elided.
 
 This demo consists of two almost identical assembly programs, `with-mov.s` and `without-mov.s`. Each program contains a loop which simply counts down a counter.  
 In `with-mov`, there is an extraneous `mov` in the loop dependency chain. In `without-mov`, the extra `mov` is not present.
