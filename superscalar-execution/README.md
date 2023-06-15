@@ -15,6 +15,7 @@ CPU:
 
 Software:
 
+- Linux
 - GCC
 - Make
 - perf
