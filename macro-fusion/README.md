@@ -2,9 +2,7 @@
 
 ## Overview
 
-A demonstration of macro-op fusion, an optimisation where two instructions combine into one within the execution unit of the CPU.
-
-The assembly program `macro-fused.s` contains a minimal loop that only count down a counter. This is implemented as a `dec` instruction followed by a `jnz` instruction.
+A demonstration of macro-op fusion, an optimisation where two consecutive instructions combine into one micro-instruction for execution within the CPU. This reduces resource usage in all stages of the pipeline after decoding, possibly increasing execution throughput.
 
 ## Requirements
 
@@ -20,30 +18,29 @@ Software:
 - Make
 - perf
 
-## Build & Run
+## Tutorial
 
-To build, run in this directory:
+This demonstration has two assembly programs, `with-fusion.s` and `without-fusion.s`. Both consist of a loop with more arithmetic instructions than the CPU can execute simultaneously<sup>1</sup>. The difference is that in `with-fusion`, macro-op fusion can occur.
+
+To build the programs, run in this directory:
 
 ```bash
 make
 ```
 
-Then run and check the number of instructions and cycles:
+Then run and check the number of instructions, cycles, and micro-instructions issued:
 
 ```bash
-perf stat -e instructions,cycles ./macro-fused
+perf stat -e instructions,cycles,uops_issued.any ./with-fusion
+perf stat -e instructions,cycles,uops_issued.any ./without-fusion
 ```
 
-You may also want to check the number of micro-instructions issued:
+If your CPU supports macro-op fusion, you should see that `with-fusion` completes with fewer micro-instructions issued and cycles, for the same number of instructions overall.
 
-```bash
-perf stat -e uops_issued.any ./macro-fused
-```
+The reason is macro-op fusion. Certain pairs of consecutive instructions can macro-fuse; the most common being `inc`/`dec`/`add`/`sub`/`test`/`cmp` with `jCC` (`CC` being some conditional code). In `with-fusion`, the `dec %rax` and `jnz` can be fused, whereas in `without-fusion` they are not consecutive and cannot fuse.
 
-## Explanation
+As a result, each loop iteration, `with-fusion` has one fewer issued (i.e scheduled for execution) micro-instruction over `without-fusion`, which is reflected by the `uops_issued.any` counter. When the bottleneck is parallel instruction execution, as in these programs, more cycles are required to execute the extra micro-instruction.
 
-If your CPU supports macro-fusion, you should observe that the program runs in about 10G cycles, and at roughly two instructions per cycle. With 10G loop iterations, that is one cycle per iteration. Additionally, you should see approximately 10G micro-instructions issued.
+### Notes
 
-Naively, it would be expected that since each iteration requires the completion of two instructions in sequence, an iteration should take at least two cycles. With macro-fusion, however, certain pairs of consecutive instructions may be combined during instruction decoding, and then executed as a single micro-instruction, rather than two micro-instructions. The most common instruction pairings are `inc`/`dec`/`add`/`sub`/`test`/`cmp` with `jCC` (`CC` being some conditional code).
-
-In this program, the `dec` and `jnz` can be fused. The resulting micro-instruction has one cycle of execution latency, allowing the loop to execute at one iteration per cycle.
+<small><sup>1</sup>The exact number of arithmetic instructions a CPU can execute simultaneously depends on the microarchitecture, specifically the configuration of execution units. But I don't think there are any current CPUs which have nine arithmetic units.</small>

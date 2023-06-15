@@ -1,6 +1,13 @@
-macro-fused : macro-fused.s
-	gcc -masm=intel -g -o macro-fused macro-fused.s
+compile = gcc -masm=intel -g
+
+all : with-fusion without-fusion
+
+with-fusion : with-fusion.s
+	$(compile) -o with-fusion with-fusion.s
+
+without-fusion : without-fusion.s
+	$(compile) -o without-fusion without-fusion.s
 
 .PHONY: clean
 clean :
-	rm -f macro-fused
+	rm -f with-fusion without-fusion
