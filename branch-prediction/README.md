@@ -2,10 +2,7 @@
 
 ## Overview
 
-A demonstration of the utility of branch prediction.
-
-This demo consists of two almost identical assembly programs, `predictable.s` and `unpredictable.s`. Each program generates a sequence of integers, and for each integer, performs a slightly different operation depending if it's even or odd.  
-However, `unpredictable`'s sequence is largely random, while `predictable`'s sequence alternates perfectly between even and odd.
+A demonstration of branch prediction, an optimisation where the CPU predicts the result of a branch (jump) instruction, allowing execution to continue without waiting.
 
 ## Requirements
 
@@ -19,34 +16,28 @@ Software:
 - Linux
 - GCC
 - Make
+- perf
 
-## Build & Run
+## Tutorial
 
-To build both programs, run in this directory:
+This demonstration consists of two almost identical assembly programs, `predictable.s` and `unpredictable.s`. Each program generates a sequence of integers, and for each integer, branches to slightly different operations depending if it's even or odd.  
+However, `unpredictable`'s sequence is largely random, while `predictable`'s sequence alternates perfectly between even and odd.
+
+To build the programs, run in this directory:
 
 ```bash
 make
 ```
 
-Then run each program and check their performance:
+Then run each program and check the number of cycles taken and the branch prediction rate:
 
 ```bash
-time ./predictable
-time ./unpredictable
+perf stat -e cycles,branches,branch-misses ./predictable
+perf stat -e cycles,branches,branch-misses ./unpredictable
 ```
 
-You may want to confirm the branch prediction hit rate:
+You should find that `predictable` runs in significantly fewer cycles than `unpredictable` - about 50% less on the machines I have tested.
 
-```bash
-perf stat -e branches,branch-misses ./predictable
-perf stat -e branches,branch-misses ./unpredictable
-```
+The reason is branch prediction. Modern CPUs try to guess the result of a conditional jump instruction to avoid stalling the pipeline on waiting for the jump condition to be executed. If the guess is correct, the speedup can be significant; however, if the guess is wrong, the CPU must "go back" and redo execution on the correct instruction path.
 
-## Explanation
-
-You should find that `predictable.s` runs significantly faster than `unpredictable.s` (about 50% faster on the machines I have tested).
-
-The reason is branch prediction. Modern CPUs try to guess the result of a comparison + conditional jump (branch) to avoid stalling their instruction pipeline on waiting for the compare. If the guess is correct, the speedup can be significant; however, if the guess is wrong, the CPU must "go back" and redo execution on the correct instruction path.
-
-If the result of the comparison is essentially random - as is the case in `unpredictable.s` - the CPU cannot do much better than 50% prediction accuracy.  
-On the other hand, if the comparison result follows a pattern that the CPU can recognise - as is the case in `predictable.s` - the prediction rate can be near 100%.
+If the result of the comparison is essentially random - as is the case in `unpredictable` - the CPU cannot do much better than 50% prediction accuracy. On the other hand, if the comparison result follows a pattern that the CPU can recognise - as is the case in `predictable` - the prediction rate can be near 100%. This is highlighted in the `branch-misses` counter, which shows how many branches were predicted incorrectly.

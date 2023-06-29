@@ -2,9 +2,7 @@
 
 ## Overview
 
-A demonstration of superscalar instruction execution.
-
-The assembly program `superscalar.s` consists of a loop with three independent arithmetic operations per iteration.
+A demonstration of superscalar instruction execution, a CPU architecture design in which multiple instructions can be executed simultaneously to improve throughput.
 
 ## Requirements
 
@@ -20,9 +18,11 @@ Software:
 - Make
 - perf
 
-## Build & Run
+## Tutorial
 
-To build, run in this directory:
+The assembly program `superscalar.s` consists of a loop with three independent arithmetic operations per iteration.
+
+To build the program, run in this directory:
 
 ```bash
 make
@@ -34,6 +34,6 @@ Then run and check the number of instructions per cycle:
 perf stat -e instructions,cycles ./superscalar
 ```
 
-## Explanation
+You should observe that the program executes with more than one instruction per cycle on average.
 
-x86 CPUs are "superscalar" processors, meaning they are able to execute multiple instructions in parallel. Each loop iteration performs three arithmetic instructions - which each take one cycle - but their operands are independent of each other, allowing the CPU to execute them simultaneously. The result is that the program executes more than one instruction per cycle.
+The reason is that x86 CPUs are "superscalar" processors, meaning they are able to execute multiple instructions in parallel. Each loop iteration performs three arithmetic instructions - which each take one cycle. However, their data operands are independent of each other, allowing the CPU to execute them simultaneously instead of one at a time.
