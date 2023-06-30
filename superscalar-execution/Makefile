@@ -1,5 +1,7 @@
+compile = gcc -masm=intel -g
+
 superscalar : superscalar.s
-	gcc -masm=intel -g -o superscalar superscalar.s
+	$(compile) -o superscalar superscalar.s
 
 .PHONY: clean
 clean :

@@ -1,5 +1,7 @@
 .intel_syntax
+
 .global main
+
 .text
 
 main:
@@ -7,6 +9,7 @@ main:
     mov     %rdx, 2000000000    # Loop counter
     mov     %rax, 0             # Result accumulator
 
+.p2align 4      # JCC alignment issue on Skylake (unimportant)
 loop:
     mov     %rdi, %rcx      # Generate next number in sequence
     sar     %rcx, 2
