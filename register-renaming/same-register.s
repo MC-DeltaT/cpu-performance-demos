@@ -9,14 +9,16 @@ main:
     mov     %rcx, 0
     mov     %r8, 0
     mov     %r9, 0
+    mov     %r10, 10
+    mov     %r11, 20
 
 .p2align 4      # JCC alignment issue on Skylake (unimportant)
 loop:
-    lea     %rcx, [%r8+10]      # Independent arithmetic on R8
+    lea     %rcx, [%r8+%r10]    # Independent arithmetic on R8
     shl     %rcx, 11
     add     %r8, %rcx
 
-    lea     %rcx, [%r9+20]      # Independent arithmetic on R9
+    lea     %rcx, [%r9+%r11]    # Independent arithmetic on R9
     shl     %rcx, 12
     add     %r9, %rcx
 
