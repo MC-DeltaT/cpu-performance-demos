@@ -2,7 +2,7 @@
 
 ## Overview
 
-A demonstration of `mov` elimination, an optimisation where unnecessary `mov` instructions may be elided. An eliminated `mov` is resolved as part of register renaming and does not need to be executed, improving execution latency and throughput.
+`mov` elimination is an optimisation where the CPU may elide unnecessary `mov` instructions. An eliminated `mov` is resolved as part of register renaming and does not need to be executed, improving execution latency and throughput.
 
 ## Requirements
 

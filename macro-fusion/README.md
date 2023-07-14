@@ -2,7 +2,7 @@
 
 ## Overview
 
-A demonstration of macro-op fusion, an optimisation where two consecutive instructions combine into one micro-instruction for execution within the CPU. This reduces resource usage in all stages of the pipeline after decoding, possibly increasing execution throughput.
+Macro-op fusion is an optimisation where two consecutive instructions combine into one micro-instruction for execution within the CPU. This reduces resource usage in all stages of the pipeline after decoding, possibly increasing execution throughput.
 
 ## Requirements
 

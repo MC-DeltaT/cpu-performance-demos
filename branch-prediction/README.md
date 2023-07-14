@@ -2,7 +2,7 @@
 
 ## Overview
 
-A demonstration of branch prediction, an optimisation where the CPU predicts the result of a branch (jump) instruction, allowing execution to continue without waiting.
+Branch prediction is an optimisation where the CPU predicts the result of a branch (jump) instruction, allowing execution to continue without waiting.
 
 ## Requirements
 
