@@ -2,7 +2,7 @@
 
 ## Overview
 
-Superscalar instruction execution is a CPU architecture design in which multiple instructions can be executed simultaneously to improve throughput.
+Superscalar instruction execution is a CPU microarchitecture design in which multiple instructions can be executed simultaneously to improve throughput.
 
 ## Requirements
 
