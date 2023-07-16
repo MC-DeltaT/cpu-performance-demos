@@ -20,7 +20,7 @@ Software:
 
 ## Tutorial
 
-This demonstration has two assembly programs, `with-fusion.s` and `without-fusion.s`. Both consist of a loop with more arithmetic instructions than the CPU can execute simultaneously<sup>1</sup>. The difference is that in `with-fusion`, macro-op fusion can occur.
+This demonstration has two assembly programs, `with-fusion.s` and `without-fusion.s`. Both consist of a loop with more arithmetic instructions than the CPU can execute simultaneously<sup>1</sup>. The only difference is that in `with-fusion`, macro-op fusion can occur.
 
 To build the programs, run in this directory:
 
