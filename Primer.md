@@ -47,7 +47,7 @@ A list of AMD x86 microarchitectures can be bound here: [https://en.wikichip.org
 ## Instruction Pipeline
 
 It is infeasible to implement CPU hardware that is able to read, parse, and execute an instruction all at once. Instead, instructions flow through a *pipeline* with multiple stages, each stage performing a different operation necessary to execute the instruction.  
-Ideally, an instruction will progress to the next pipeline stage every *clock cycle*. 1 cycle is the smallest unit of time that the CPU operates on. (If your CPU is labelled "3GHz", that is 3 billion cycles per second.)
+Ideally, an instruction will progress to the next pipeline stage every *clock cycle*. One cycle is the smallest unit of time that the CPU operates on. (If your CPU is labelled "3GHz", that is three billion cycles per second.)
 
 The classic pipeline stage are:
 
