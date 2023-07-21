@@ -7,20 +7,15 @@
 main:
     mov     %rax, 10000000000   # Loop counter
     mov     %rcx, 10
-    mov     %rdx, 20
 
 # TODO
 .p2align 4      # JCC alignment issue on Skylake (unimportant)
 loop:
-    add     %rcx, 7     # 4-cycle dependency
+    add     %rcx, 7     # 3-cycle dependency
     shl     %rcx, 6
-    sub     %rcx, 5
     xor     %rcx, 4321
 
-    sub     %rdx, 42    # 2-cycle dependency
-    shr     %rdx, 2
-
-    dec     %rax        # Loop counter & condition
+    dec     %rax        # 1-cycle dependency
     jnz     loop
 
     ret
