@@ -28,12 +28,12 @@ Enjoy!
 Naturally, the exact results of these microbenchmarks depend significantly on your CPU's microarchitecture. The demonstrations were written and tested with "modern" Intel x86-64 CPUs in mind, with "modern" being roughly Skylake or newer. Many of the more general demonstrations will likely work on modern AMD x86-64 CPUs as well.  
 I have tried to indicate in each demonstration broadly which CPUs are supported, however this may not be completely accurate, particularly for older CPUs.
 
-**What's this "Skylake JCC issue"?**
+**What's this "Skylake JCC alignment issue"?**
 
 In almost every demonstration's assembly code, you will see something like this:
 
 ```
-.p2align 4      # JCC alignment issue on Skylake (unimportant)
+.p2align 4      # Skylake JCC alignment issue (unimportant)
 loop:
     ...
 ```

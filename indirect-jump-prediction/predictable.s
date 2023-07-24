@@ -8,7 +8,7 @@ main:
     mov     %rcx, 25698         # Random state
     mov     %rdx, 2000000000    # Loop counter
     mov     %rax, 0             # Result accumulator
-.p2align 3      # JCC alignment issue on Skylake (unimportant)
+.p2align 3      # Skylake JCC alignment issue (unimportant)
 loop:
     mov     %rdi, %rcx      # Generate next number in sequence
     sar     %rcx, 13

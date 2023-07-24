@@ -10,7 +10,7 @@ main:
     mov     %rdx, 159
     mov     %rsi, 265
 
-.p2align 5      # JCC alignment issue on Skylake (unimportant)
+.p2align 5      # Skylake JCC alignment issue (unimportant)
 loop:
     imul    %rcx, %rcx, 10
     add     %rdx, 20

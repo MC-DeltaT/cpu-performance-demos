@@ -9,7 +9,7 @@ main:
     mov     %rcx, 314
     mov     %rdx, 159
     mov     %rsi, 265
-.p2align 5      # JCC alignment issue on Skylake (unimportant)
+.p2align 5      # Skylake JCC alignment issue (unimportant)
 loop:
     add     %rcx, %rcx      # Arithmetic 1
     sub     %rdx, 3         # Arithmetic 2

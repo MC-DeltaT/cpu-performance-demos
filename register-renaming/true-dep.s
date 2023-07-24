@@ -10,7 +10,7 @@ main:
     mov     %r8, 0
     mov     %r9, 0
 
-.p2align 4      # JCC alignment issue on Skylake (unimportant)
+.p2align 4      # Skylake JCC alignment issue (unimportant)
 loop:
     lea     %rcx, [%r8+%rcx]    # Arithmetic on R8 & RCX
     shl     %rcx, 11

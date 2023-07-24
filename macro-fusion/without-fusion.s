@@ -14,7 +14,7 @@ main:
     mov     %r9, 0
     mov     %r10, 0
     mov     %r11, 0
-.p2align 3      # JCC alignment issue on Skylake (unimportant)
+.p2align 3      # Skylake JCC alignment issue (unimportant)
 loop:
     inc     %rcx
     inc     %rdx
