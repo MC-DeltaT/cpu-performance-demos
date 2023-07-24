@@ -1,9 +1,6 @@
 compile = gcc -masm=intel -g
 
-all : minimal-loop 1-chain 1-1-chains 1-3-chains
-
-minimal-loop : minimal-loop.s
-	$(compile) -o minimal-loop minimal-loop.s
+all : 1-chain 1-1-chains 1-3-chains
 
 1-chain : 1-chain.s
 	$(compile) -o 1-chain 1-chain.s
@@ -16,4 +13,4 @@ minimal-loop : minimal-loop.s
 
 .PHONY: clean
 clean :
-	rm -f minimal-loop 1-chain 1-1-chains 1-3-chains
+	rm -f 1-chain 1-1-chains 1-3-chains

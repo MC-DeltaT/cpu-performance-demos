@@ -28,23 +28,9 @@ To build the programs, run in this directory:
 make
 ```
 
-### minimal-loop
-
-`minimal-loop.s` contains the most basic loop possible - a single `jmp` instruction which loops to itself infinitely.
-
-To run this program:
-
-```bash
-timeout -s SIGINT 5 perf stat -e instructions,cycles ./minimal-loop
-```
-
-(The `timeout` is required to forcibly stop the loop after five seconds.)
-
-TODO: 1 cycle/iter explanation
-
 ### 1-chain
 
-`1-chain.s` contains the most basic loop with a fixed number of iterations. It does nothing other than decrement the loop counter (`rax`) to zero, then exit.
+`1-chain.s` contains the most basic loop with a condition. It does nothing other than decrement the loop counter (`rax`) to zero, then exit.
 
 The loop-carried dependency here is a chain with one instruction: `dec %rax`. The `dec` depends on the previous value of `rax`, and produces the next value of `rax`. This data dependency means that one `dec` cannot begin execution until the previous `dec` has finished. Consequently, one loop iteration cannot begin until the previous iteration has completed.  
 Note the behaviour of the loop is also dependent on the `jnz` instruction, which depends on the `dec`. However, if this branch is predicted correctly, the CPU can begin execution of the next loop iteration without waiting for the `jnz`<sup>1</sup>. In this way, predictable jump instructions can be effectively disregarded from performance considerations.
@@ -121,4 +107,4 @@ Notice that three cycles are required to complete the `rcx` arithmetic chain, an
 
 ### Notes
 
-<small><sup>1</sup>The astute among you may notice that on modern CPUs, the `dec` and `jnz` macro-fuse into one micro-instruction that has a latency of one cycle. This does not affect the explanation, because it is still due to branch prediction that removes branches from dependency chains. Even with macro-op fusion, the lack of branch prediction would cause large stalls in instruction fetching, preventing a new instruction from being executed each cycle.</small>
+<small><sup>1</sup>The astute among you may notice that on modern CPUs, the `dec` and `jnz` macro-fuse into one micro-instruction that has a latency of one cycle. This does not affect the explanation, because it is still due to branch prediction that branches are removed from dependency chains. Even with macro-op fusion, the lack of branch prediction would cause large stalls in instruction fetching, preventing a new instruction from being executed each cycle.</small>
