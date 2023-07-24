@@ -2,10 +2,10 @@
 
 ## Overview
 
-Out of order execution is a CPU microarchitecture design in which the execution ordering of instructions is dynamically decided based on data dependencies. An instruction *A* executes before an instruction *B* if *B* depends on the result of *A*; otherwise, they can be reordered.  
+Out-of-order execution is a CPU microarchitecture design in which the execution ordering of instructions is dynamically decided based on data dependencies. An instruction *A* executes before an instruction *B* if *B* depends on the result of *A*; otherwise, they can be reordered.  
 The reordering can increase parallelism in execution, improving latency and throughput.
 
-Out of order execution can be thought of as an extension or generalisation of superscalar execution.
+Out-of-order execution can be thought of as an extension or generalisation of superscalar execution.
 
 ## Requirements
 
@@ -44,4 +44,4 @@ You should observe that `out-of-order` completes in significantly fewer cycles a
 The reason is that modern x86 CPUs execute instructions out of order as data dependencies permit. If an instruction's operands are ready, then it can be executed immediately regardless of its position in program order. Since the arithmetic in `out-of-order` are independent, all three instructions may execute in parallel. On the other hand, the arithmetic instructions in `in-order` depend on each other, and hence they must be executed sequentially, in order.  
 The increased possibility for parallel execution in `out-of-order` reduces the cycles required for each loop iteration, increasing the performance.
 
-It is important to note that with out of order execution, data dependencies become a primary limiting factor for performance.
+It is important to note that with out-of-order execution, data dependencies become a primary limiting factor for performance.
