@@ -38,7 +38,7 @@ For reference of x86-64 registers, see here: [https://learn.microsoft.com/en-us/
 
 The instruction set architecture defines the high-level interface to the CPU, but at a lower level, CPU hardware can vary significantly. The exact hardware implementation and performance characteristics of a CPU is referred to as its *microarchitecture*.
 
-One major source of variation between microarchitectures is performance, with manufacturers implementing many features over the years in to try to make x86 code run faster.
+One major source of variation between microarchitectures is performance, with manufacturers implementing many features over the years to try to make x86 code run faster.
 
 The major x86 CPU manufacturers are Intel and AMD. Traditionally, Intel CPUs have been dominant in single-core performance, and often implement performance-enhancing features before AMD. These demonstrations are therefore mostly focused on Intel CPUs.  
 A list of Intel x86 microarchitectures can be found here: [https://en.wikichip.org/wiki/intel/microarchitectures](https://en.wikichip.org/wiki/intel/microarchitectures)  

@@ -17,18 +17,24 @@ Some demonstrations inherently build on topics discussed in other demonstrations
 5. [Loop-carried dependencies](loop-carried-dependency)
 6. [Register renaming](register-renaming)
 7. [MOV elimination](mov-elimination)
-8. [Macro-op fusion](macro-fusion)
+8. [Zeroing idioms](zeroing-idiom)
+9. [Macro-op fusion](macro-fusion)
 
 Enjoy!
 
 ## Notes
 
-**Performance disclaimer**
+### Performance disclaimer
 
-Naturally, the exact results of these microbenchmarks depend significantly on your CPU's microarchitecture. The demonstrations were written and tested with "modern" Intel x86-64 CPUs in mind, with "modern" being roughly Skylake or newer. Many of the more general demonstrations will likely work on modern AMD x86-64 CPUs as well.  
-I have tried to indicate in each demonstration broadly which CPUs are supported, however this may not be completely accurate, particularly for older CPUs.
+Naturally, the exact results of microbenchmarks depend significantly on your CPU's microarchitecture - demonstrating microarchitecture in a microarchitecture-agnostic manner is difficult. Some factors that may contribute to differing results include:
 
-**What's this "Skylake JCC alignment issue"?**
+- Feature is not implemented on all CPUs.
+- Particular instruction latencies are assumed.
+- A minimum amount of parallel execution capacity (execution ports) is assumed.
+
+The demonstrations were written and tested with Intel x86-64 CPUs from Skylake onwards in mind. I have tried my best to indicate in each demonstration broadly which CPUs are supported and what assumptions are made.
+
+### What's this "Skylake JCC alignment issue"?
 
 In almost every demonstration's assembly code, you will see something like this:
 
