@@ -9,7 +9,6 @@ main:
     mov     %rcx, 314
     mov     %rdx, 159
 
-# TODO
 .p2align 5      # Skylake JCC alignment issue (unimportant)
 loop:
     xor     %rcx, %rdx

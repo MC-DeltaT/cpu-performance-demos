@@ -10,8 +10,7 @@ Such an optimisation can increase parallelism in execution, improving latency an
 CPU:
 
 - Any Intel x86-64
-
-TODO
+- Any AMD x86-64
 
 Software:
 
