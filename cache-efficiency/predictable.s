@@ -10,8 +10,8 @@ main:
     push    %r13
     mov     %r12, 0xfffffff     # Array size
 
-    mov     %rdi, %r12          # Allocate array
-    call    malloc
+    mov     %rdi, %r12
+    call    malloc              # Allocate array
     mov     %r13, %rax          # Save array pointer
 
     mov     %rdi, %r13          # Write to array to force page-in
@@ -19,22 +19,20 @@ main:
     mov     %rdx, %r12
     call    memset
 
-    mov     %rcx, 0             # Random state
-    mov     %rdx, 500000000     # Loop counter
+    mov     %rcx, 1000000000    # Loop counter
+    mov     %rdx, 0             # Index sequence start
     mov     %rax, 0             # Result accumulator
 
 # TODO
 .p2align 5      # Skylake JCC alignment issue (unimportant)
 loop:
-    mov     %rdi, %rcx      # Generate next array index
-    add     %rcx, 1
-    add     %rcx, %rdi
-    mov     %rdi, %rcx
-    and     %rdi, %r12
+    mov     %rdi, %rdx
+    and     %rdi, %r12      # Mask index to array size
     movzx   %rsi, BYTE PTR [%r13+%rdi]   # Read from array index
     add     %rax, %rsi
 
-    dec     %rdx            # Loop counter & condiiton
+    lea     %rdx, [%rdx+1] # Generate next array index
+    dec     %rcx        # Loop counter & condiiton
     jnz     loop
 
     pop     %r13
