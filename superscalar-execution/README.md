@@ -18,6 +18,10 @@ Software:
 - Make
 - perf
 
+Other microarchitectural assumptions:
+
+- &gt;= 2 scalar integer execution units/ports
+
 ## Tutorial
 
 The assembly program `superscalar.s` consists of a loop with three independent arithmetic operations per iteration.
@@ -36,4 +40,4 @@ perf stat -e instructions,cycles ./superscalar
 
 You should observe that the program executes with more than one instruction per cycle on average.
 
-The reason is that x86 CPUs are "superscalar" processors, meaning they are able to execute multiple instructions in parallel. Each loop iteration performs three arithmetic instructions - which each take one cycle. However, their data operands are independent of each other, allowing the CPU to execute them simultaneously instead of one at a time.
+The reason is that modern x86 CPUs are "superscalar" processors, meaning they are able to execute multiple instructions in parallel. Each loop iteration performs three arithmetic instructions - which each take one cycle. However, their data operands are independent of each other, allowing the CPU to execute them simultaneously instead of one at a time.

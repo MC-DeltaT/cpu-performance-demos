@@ -19,6 +19,10 @@ Software:
 - Make
 - perf
 
+Other microarchitectural assumptions:
+
+- &gt;= 3 scalar integer execution units/ports
+
 ## Tutorial
 
 This demonstration contains two nearly identical assembly programs, `zeroed-dep.s` and `true-dep.s`. Each program consists of a loop with arithmetic on `RCX`. In `zeroed-dep`, the first arithmetic instruction is a zeroing `xor %rcx, %rcx`, while in `true-dep` there is a real data dependency on the previous iteration's value of `RCX`.

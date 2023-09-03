@@ -19,6 +19,10 @@ Software:
 - Make
 - perf
 
+Other microarchitectural assumptions:
+
+- &gt;= 2 scalar integer execution units/ports
+
 ## Tutorial
 
 This demonstration consists primarily of two nearly-identical assembly programs, `same-register.s` and `diff-register.s`. Each of these programs contains a loop with two read-modify-write arithmetic calculations on registers `R8` and `R9`. The arithmetic requires an intermediate register. In `same-register`, both calculations use the same intermediate register (`RCX`); in `diff-register`, the calculations use different intermediate registers (`RCX` and `RDX`).

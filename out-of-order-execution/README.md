@@ -21,6 +21,10 @@ Software:
 - Make
 - perf
 
+Other microarchitectural assumptions:
+
+- &gt;= 2 scalar integer execution units/ports
+
 ## Tutorial
 
 This demonstration contains two assembly programs, `out-of-order.s` and `in-order.s`, each of which consist of a loop of three arithmetic instructions. The first arithmetic instruction is a multiplication, which takes a few cycles (three on modern CPUs at the time of writing). The second and third instructions are faster (one cycle each on modern CPUs).  

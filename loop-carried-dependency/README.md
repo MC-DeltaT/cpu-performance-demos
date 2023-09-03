@@ -18,6 +18,12 @@ Software:
 - Make
 - perf
 
+Other microarchitectural assumptions:
+
+- &gt;= 2 scalar ALU execution units/ports
+- Basic scalar ALU instructions have 1 cycle latency
+- Predicted jump instructions have 1 cycle latency
+
 ## Tutorial
 
 This demonstration consists of several assembly programs, each containing a loop with a different loop-carried dependency. The programs will be explained in order of increasing complexity.
