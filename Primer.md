@@ -75,7 +75,11 @@ There are hundreds of x86 instructions, too many for CPU hardware to execute dir
 
 One instruction maps to some number of micro-instructions as part of the "decode" pipeline stage, from which point onwards the CPU deals in terms of micro-instructions only. Common, basic instructions such as integer arithmetic and logic are typically one micro-instruction. More complex instructions may be multiple micro-instructions. Each micro-instruction takes at least one cycle to execute (with a few exceptions).
 
+## Cache
+
+TODO
+
 ## References
 
-Much of the information on x86 microarchitecture I have learnt is from Agner Fog's guide, which I would like to credit here: "*The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers*", available at [https://www.agner.org/optimize/#manuals](https://www.agner.org/optimize/#manuals). This guide is a wealth of information and I highly recommend reading it if you want to know more about microachitecture.  
+Much of the information on x86 microarchitecture I have learnt is from Agner Fog's guide, which I would like to credit here: "*The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers*", available at [https://www.agner.org/optimize/#manuals](https://www.agner.org/optimize/#manuals). This guide is a wealth of information and I highly recommend reading it if you want to know more about microarchitecture.  
 Additionally, their guide "*Instruction tables: Lists of instruction latencies, throughputs and micro-operation breakdowns for Intel, AMD and VIA CPUs*" is a useful reference to understand the performance of various instructions.
