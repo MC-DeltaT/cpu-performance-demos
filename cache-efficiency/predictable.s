@@ -23,8 +23,7 @@ main:
     mov     %rdx, 0             # Index sequence start
     mov     %rax, 0             # Result accumulator
 
-# TODO
-.p2align 5      # Skylake JCC alignment issue (unimportant)
+.p2align 4      # Skylake JCC alignment issue (unimportant)
 loop:
     mov     %rdi, %rdx
     and     %rdi, %r12      # Mask index to array size
