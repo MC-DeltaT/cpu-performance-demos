@@ -47,7 +47,7 @@ A list of AMD x86 microarchitectures can be bound here: [https://en.wikichip.org
 ## Instruction Pipeline
 
 It is infeasible to implement CPU hardware that is able to read, parse, and execute an instruction all at once. Instead, instructions flow through a *pipeline* with multiple stages, each stage performing a different operation necessary to execute the instruction.  
-Ideally, an instruction will progress to the next pipeline stage every *clock cycle*. One cycle is the smallest unit of time that the CPU operates on. (If your CPU is labelled "3GHz", that is three billion cycles per second.)
+An instruction will progress to the next pipeline stage no sooner than each *clock cycle*. One cycle is the smallest unit of time that the CPU operates on. (If your CPU is labelled "3GHz", that is three billion cycles per second.)
 
 The classic pipeline stage are:
 
@@ -63,7 +63,7 @@ However, the complexity of modern x86 microarchitecture has led to more pipeline
 3. Decode - emit micro-instructions for each instruction (see next section).
 4. Register renaming - map register names to hardware registers.
 5. Reorder buffer & scheduling - reorder micro-instructions based on data dependencies.
-6. Execute - execute the micro-instruction.
+6. Execute - execute the micro-instruction. (Often takes multiple cycles.)
 7. Retire - commit results to registers and memory.
 
 Some of these stages may be broken down even further, for a total of 10-20 stages.  
@@ -77,7 +77,11 @@ One instruction maps to some number of micro-instructions as part of the "decode
 
 ## Cache
 
-TODO
+CPU performance has improved exponentially over the years, far more than that of main memory technologies. Accessing memory has come to be orders of magnitude slower than most CPU instructions. To alleviate memory performance issues, modern CPUs have *cache*: a small amount of on-chip memory of medium speed which acts as a buffer between the CPU and main memory.
+
+All memory reads first examine the cache to see if that address is present. If so, the CPU gets its result quickly. If not, the data is loaded from main memory and placed into the cache, evicting other data if necessary.
+
+CPUs often have a hierarchy of *cache levels* to bridge the gap to main memory, with higher levels having greater capacity but trading off more speed. The exact cache configuration and capabilities are part of a CPU's microarchitecture.
 
 ## References
 
