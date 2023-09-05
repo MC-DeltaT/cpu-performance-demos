@@ -1,13 +1,13 @@
 compile = gcc -masm=intel -g
 
-all : predictable unpredictable
+all : sequential random
 
-predictable : predictable.s
-	$(compile) -o predictable predictable.s
+sequential : sequential.s
+	$(compile) -o sequential sequential.s
 
-unpredictable : unpredictable.s
-	$(compile) -o unpredictable unpredictable.s
+random : random.s
+	$(compile) -o random random.s
 
 .PHONY: clean
 clean :
-	rm -f predictable unpredictable
+	rm -f sequential random
