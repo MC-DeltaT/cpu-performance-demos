@@ -46,8 +46,7 @@ The information we gathered here is:
 - `mem_load_retired.l1_miss` - Number of load instructions where data was not in level 1 cache ("miss").
 - `l1d_pend_miss.pending_cycles` - Number of cycles waiting for data to be loaded from higher cache levels or memory.
 
-TODO
-You should observe that `sequential` executes in far fewer cycles than `random` (about TODO on the machine I tested). Furthermore, for `sequential`, almost all loads are cache hits. Meanwhile, for `random`, almost all loads are cache misses, and almost all cycles taken by the program are spent waiting for data to be loaded from memory.
+You should observe that `random` takes far more cycles to execute than `sequential` (10-20x on the machine I tested). Furthermore, for `sequential`, almost all loads are cache hits. Meanwhile, for `random`, almost all loads are cache misses, and almost all cycles taken by the program are spent waiting for data to be loaded from memory.
 
 The reason for these results is due to the nature of the function of the cache.  
 Firstly, data in the cache is divided into "lines" - commonly 64 bytes - to make implementation efficient and on the assumption that nearby data is likely to be accessed simultaneously. Subsequently, when loading data from main memory, an entire line is loaded at once.  
