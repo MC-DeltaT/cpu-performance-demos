@@ -12,11 +12,11 @@ main:
 
 .p2align 4      # Skylake JCC alignment issue (unimportant)
 loop:
-    lea     rcx, [r8+rcx]   # Arithmetic on R8 & RCX
+    lea     rcx, [r8+rcx]   # Arithmetic on r8 & rcx
     shl     rcx, 11
     add     r8, rcx
 
-    lea     rcx, [r9+rcx]   # Arithmetic on R9 & RCX
+    lea     rcx, [r9+rcx]   # Arithmetic on r9 & rcx
     shl     rcx, 12
     add     r9, rcx
 

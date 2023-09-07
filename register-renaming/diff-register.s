@@ -14,11 +14,11 @@ main:
 
 .p2align 4      # Skylake JCC alignment issue (unimportant)
 loop:
-    lea     rcx, [r8+r10]   # Independent arithmetic on R8
+    lea     rcx, [r8+r10]   # Independent arithmetic on r8
     shl     rcx, 11
     add     r8, rcx
 
-    lea     rdx, [r9+r11]   # Independent arithmetic on R9
+    lea     rdx, [r9+r11]   # Independent arithmetic on r9
     shl     rdx, 12
     add     r9, rdx
 

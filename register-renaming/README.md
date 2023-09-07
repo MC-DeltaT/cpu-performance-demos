@@ -25,9 +25,9 @@ Other microarchitectural assumptions:
 
 ## Tutorial
 
-This demonstration consists primarily of two nearly-identical assembly programs, `same-register.s` and `diff-register.s`. Each of these programs contains a loop with two read-modify-write arithmetic calculations on registers `R8` and `R9`. The arithmetic requires an intermediate register. In `same-register`, both calculations use the same intermediate register (`RCX`); in `diff-register`, the calculations use different intermediate registers (`RCX` and `RDX`).
+This demonstration consists primarily of two nearly-identical assembly programs, `same-register.s` and `diff-register.s`. Each of these programs contains a loop with two read-modify-write arithmetic calculations on registers `r8` and `r9`. The arithmetic requires an intermediate register. In `same-register`, both calculations use the same intermediate register (`rcx`); in `diff-register`, the calculations use different intermediate registers (`rcx` and `rdx`).
 
-If registers were not renamed, then the CPU could not simultaneously execute the arithmetic on `R8` and `R9` in `same-register`, since both require the use of `RCX`. Meanwhile, `diff-register` allows simultaneous (superscalar) execution because one arithmetic uses `RDX` instead. In this case, we would expect `diff-register` to complete in significantly fewer cycles than `same-register`.
+If registers were not renamed, then the CPU could not simultaneously execute the arithmetic on `r8` and `r9` in `same-register`, since both require the use of `rcx`. Meanwhile, `diff-register` allows simultaneous (superscalar) execution because one arithmetic uses `rdx` instead. In this case, we would expect `diff-register` to complete in significantly fewer cycles than `same-register`.
 
 To build the programs, run in this directory:
 
@@ -42,10 +42,10 @@ perf stat -e instructions,cycles ./same-register
 perf stat -e instructions,cycles ./diff-register
 ```
 
-`same-register` and `diff-register` take approximately the same number of cycles to complete due to register renaming. Note the initial `lea` instruction for each arithmetic block overwrites `RCX` and does not rely on its previous value. Modern CPUs exploit this scenario by assigning a new hardware register in place of `RCX`, rather than waiting for `RCX` to be ready. Subsequent instructions that read `RCX` will read from this hardware register. `RCX` is said to have been "renamed" to a different hardware register.  
-As a result, in both `same-register` and `diff-register`, the arithmetic operations on `R8` and `R9` can execute independently and in parallel.
+`same-register` and `diff-register` take approximately the same number of cycles to complete due to register renaming. Note the initial `lea` instruction for each arithmetic block overwrites `rcx` and does not rely on its previous value. Modern CPUs exploit this scenario by assigning a new hardware register in place of `rcx`, rather than waiting for `rcx` to be ready. Subsequent instructions that read `rcx` will read from this hardware register. `rcx` is said to have been "renamed" to a different hardware register.  
+As a result, in both `same-register` and `diff-register`, the arithmetic operations on `r8` and `r9` can execute independently and in parallel.
 
-To prove that the two arithmetic blocks do run at least partially in parallel, a third program, `true-dep.s`, is provided for comparison. It contains similar instructions as `same-register` and `diff-register`, but with an unavoidable data dependency between the modifications of `R8` and `R9` via `RCX`. The sum of individual instruction latencies remains the same as `same-register` and `diff-register`.  
+To prove that the two arithmetic blocks do run at least partially in parallel, a third program, `true-dep.s`, is provided for comparison. It contains similar instructions as `same-register` and `diff-register`, but with an unavoidable data dependency between the modifications of `r8` and `r9` via `rcx`. The sum of individual instruction latencies remains the same as `same-register` and `diff-register`.  
 Run it to check the performance:
 
 ```bash

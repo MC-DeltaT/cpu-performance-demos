@@ -15,7 +15,7 @@ loop:
     add     rcx, rdi
     mov     rdi, rcx        # Compute jump table offset
     and     rdi, 1
-    shl     rdi, 3          # Even -> RDI=0, odd -> RDI=8
+    shl     rdi, 3          # Even -> rdi=0, odd -> rdi=8
     lea     rsi, [targets+rip]  # Load jump table
     jmp     [rsi+rdi]       # Even -> target1, odd -> target2
 target1:
