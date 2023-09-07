@@ -41,6 +41,6 @@ perf stat -e instructions,cycles,uops_issued.any ./without-fusion
 
 If your CPU supports macro-op fusion, you should see that `with-fusion` completes with fewer micro-instructions issued and cycles, for the same number of instructions overall.
 
-The reason is macro-op fusion. Certain pairs of consecutive instructions can macro-fuse; the most common being `inc`/`dec`/`add`/`sub`/`test`/`cmp` with `jCC` (`CC` being some conditional code). In `with-fusion`, the `dec %rax` and `jnz` can be fused, whereas in `without-fusion` they are not consecutive and cannot fuse.
+The reason is macro-op fusion. Certain pairs of consecutive instructions can macro-fuse; the most common being `inc`/`dec`/`add`/`sub`/`test`/`cmp` with `jCC` (`CC` being some conditional code). In `with-fusion`, the `dec rax` and `jnz` can be fused, whereas in `without-fusion` they are not consecutive and cannot fuse.
 
 As a result, each loop iteration, `with-fusion` has one fewer issued (i.e scheduled for execution) micro-instruction over `without-fusion`, which is reflected by the `uops_issued.any` counter. When the bottleneck is parallel instruction execution, as in these programs, more cycles are required to execute the extra micro-instruction.

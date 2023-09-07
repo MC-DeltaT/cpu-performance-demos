@@ -38,7 +38,7 @@ make
 
 `1-chain.s` contains the most basic loop with a condition. It does nothing other than decrement the loop counter (`rax`) to zero, then exit.
 
-The loop-carried dependency here is a chain with one instruction: `dec %rax`. The `dec` depends on the previous value of `rax`, and produces the next value of `rax`. This data dependency means that one `dec` cannot begin execution until the previous `dec` has finished. Consequently, one loop iteration cannot begin until the previous iteration has completed.  
+The loop-carried dependency here is a chain with one instruction: `dec rax`. The `dec` depends on the previous value of `rax`, and produces the next value of `rax`. This data dependency means that one `dec` cannot begin execution until the previous `dec` has finished. Consequently, one loop iteration cannot begin until the previous iteration has completed.  
 Note the behaviour of the loop is also dependent on the `jnz` instruction, which depends on the `dec`. However, if this branch is predicted correctly, the CPU can begin execution of the next loop iteration without waiting for the `jnz`<sup>1</sup>. In this way, predictable jump instructions can be effectively disregarded from performance considerations.
 
 Run the program and measure the number of cycles required:
@@ -52,9 +52,9 @@ We can justify this result by examining how the instructions may be scheduled. A
 
 ```text
 Cycle       Instruction (iteration)
-1           dec %rax (1)
-2           dec %rax (2)  +  jnz (1)
-3           dec %rax (3)  +  jnz (2)
+1           dec rax (1)
+2           dec rax (2)  +  jnz (1)
+3           dec rax (3)  +  jnz (2)
 ...         ...
 ```
 
@@ -62,7 +62,7 @@ Overall, the loop performance is nearly exclusively defined by the latency of th
 
 ### 1-1-chains
 
-`1-1-chains.s` contains a loop with two independent loop-carried dependency chains of one instruction each. One chain is the `dec %rax` loop counter, as in `1-chain`. The other chain is an `add %rcx`, which behaves similarly.  
+`1-1-chains.s` contains a loop with two independent loop-carried dependency chains of one instruction each. One chain is the `dec rax` loop counter, as in `1-chain`. The other chain is an `add rcx`, which behaves similarly.  
 Each of these loop-carried dependency chains limits the maximum performance of the loop, but since they do not interact, may still execute in parallel.
 
 Run the program and measure the number of cycles required:
@@ -76,9 +76,9 @@ Assuming all instructions take one cycle each, the best instruction scheduling w
 
 ```text
 Cycle       Instruction (iteration)
-1           add %rcx (1)  +  dec %rax (1)
-2           add %rcx (2)  +  dec %rax (2)  +  jnz (1)
-3           add %rcx (3)  +  dec %rax (3)  +  jnz (2)
+1           add rcx (1)  +  dec rax (1)
+2           add rcx (2)  +  dec rax (2)  +  jnz (1)
+3           add rcx (3)  +  dec rax (3)  +  jnz (2)
 ...         ...
 ```
 
@@ -86,7 +86,7 @@ While two loop-carried dependencies are present, they are independent and have t
 
 ### 1-3-chains
 
-`1-3-chains.s` contains a loop with two independent loop-carried dependency chains. One chain is the `dec %rax` loop counter, as previously. The other chain consists of three arithmetic instructions on `rcx`.  
+`1-3-chains.s` contains a loop with two independent loop-carried dependency chains. One chain is the `dec rax` loop counter, as previously. The other chain consists of three arithmetic instructions on `rcx`.  
 Again, each of these chains does not affect the other, and so may execute in parallel.
 
 Run the program and measure the number of cycles required:
@@ -100,12 +100,12 @@ Assuming all instructions take one cycle each, the best instruction scheduling w
 
 ```text
 Cycle       Instruction (iteration)
-1           add %rcx (1)  +  dec %rax (1)
-2           shl %rcx (1)  +  dec %rax (2)  +  jnz (1)
-3           xor %rcx (1)  +  dec %rax (3)  +  jnz (2)
-4           add %rcx (2)  +  dec %rax (4)  +  jnz (3)
-5           shl %rcx (2)  +  dec %rax (5)  +  jnz (4)
-6           xor %rcx (2)  +  dec %rax (6)  +  jnz (5)
+1           add rcx (1)  +  dec rax (1)
+2           shl rcx (1)  +  dec rax (2)  +  jnz (1)
+3           xor rcx (1)  +  dec rax (3)  +  jnz (2)
+4           add rcx (2)  +  dec rax (4)  +  jnz (3)
+5           shl rcx (2)  +  dec rax (5)  +  jnz (4)
+6           xor rcx (2)  +  dec rax (6)  +  jnz (5)
 ...         ...
 ```
 
