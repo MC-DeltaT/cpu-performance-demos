@@ -1,6 +1,7 @@
 # CPU Performance Demonstrations
 
-A collection of microbenchmarks demonstrating low-level concepts and optimisations that affect performance on modern x86 CPUs.
+A collection of microbenchmarks demonstrating low-level concepts and optimisations that affect performance on modern x86 CPUs.  
+Each demonstration examines a single concept in isolation to make learning easier.
 
 *Warning: CPU microarchitecture ahead!*
 
@@ -8,7 +9,7 @@ A collection of microbenchmarks demonstrating low-level concepts and optimisatio
 
 If you are new to the world of CPU architecture and microarchitecture, you may want to read [Primer.md](Primer.md), which covers some basic concepts that are prerequisite knowledge for many of the demonstrations.
 
-Some demonstrations inherently build on topics discussed in other demonstrations. You may want to try the demonstrations in this order for ease of understanding:
+Some demonstrations inherently build on topics discussed in other demonstrations. You may want to try the demonstrations in this order to minimise confusion:
 
 1. [Superscalar execution](superscalar-execution)
 2. [Out-of-order execution](out-of-order-execution)
@@ -19,6 +20,7 @@ Some demonstrations inherently build on topics discussed in other demonstrations
 7. [MOV elimination](mov-elimination)
 8. [Zeroing idioms](zeroing-idiom)
 9. [Macro-op fusion](macro-fusion)
+10. [Cache efficiency](cache-efficiency)
 
 Enjoy!
 
