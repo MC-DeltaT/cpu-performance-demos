@@ -2,14 +2,15 @@
 
 ## Overview
 
-A demonstration of the performance gained by utilising the cache efficiently. Cache is a buffer between the CPU and main memory which stores recently accessed data, and provides it much faster than memory.  
+A demonstration of the performance gained by utilising the cache efficiently. Cache is a limited but fast buffer between the CPU and main memory which stores recently accessed data for later use.
 Accessing memory in "cache-friendly" patterns improves execution latency and throughput.
 
 ## Requirements
 
 CPU:
 
-TODO
+- Any Intel x86-64
+- Any AMD x86-64
 
 Software:
 
@@ -35,18 +36,18 @@ make
 Then run each program and measure the number of cycles, along with some memory access information:
 
 ```bash
-perf stat -e instructions,cycles,mem_inst_retired.all_loads,mem_load_retired.l1_hit,mem_load_retired.l1_miss,l1d_pend_miss.pending_cycles ./sequential
-perf stat -e instructions,cycles,mem_inst_retired.all_loads,mem_load_retired.l1_hit,mem_load_retired.l1_miss,l1d_pend_miss.pending_cycles ./random
+perf stat -e instructions,cycles,mem_load_retired.l1_hit,l1d_pend_miss.pending_cycles ./sequential
+perf stat -e instructions,cycles,mem_load_retired.l1_hit,l1d_pend_miss.pending_cycles ./random
 ```
 
 The information we gathered here is:
 
-- `mem_inst_retired.all_loads` - Total number of memory load instructions. Should be about 1 billion.
 - `mem_load_retired.l1_hit` - Number of load instructions where data was already in level 1 cache ("hit").
-- `mem_load_retired.l1_miss` - Number of load instructions where data was not in level 1 cache ("miss").
 - `l1d_pend_miss.pending_cycles` - Number of cycles waiting for data to be loaded from higher cache levels or memory.
 
-You should observe that `random` takes far more cycles to execute than `sequential` (10-20x on the machine I tested). Furthermore, for `sequential`, almost all loads are cache hits. Meanwhile, for `random`, almost all loads are cache misses, and almost all cycles taken by the program are spent waiting for data to be loaded from memory.
+Note that the loop has one billion iterations and the same number of memory loads.
+
+You should observe that `random` takes far more cycles to execute than `sequential` (10-20x on the machine I tested). Furthermore, for `sequential`, almost all loads are cache hits. Meanwhile, for `random`, only a very small proportion of loads are cache hits, and almost all cycles taken by the program are spent waiting for data to be loaded from memory.
 
 The reason for these results is due to the nature of the function of the cache.  
 Firstly, data in the cache is divided into "lines" - commonly 64 bytes - to make implementation efficient and on the assumption that nearby data is likely to be accessed simultaneously. Subsequently, when loading data from main memory, an entire line is loaded at once.  
